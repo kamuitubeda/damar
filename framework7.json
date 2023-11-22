@@ -1,0 +1,40 @@
+{
+  "cwd": "E:\\laragon\\www\\damarmobile",
+  "type": [
+    "web",
+    "pwa",
+    "cordova",
+    "capacitor"
+  ],
+  "name": "Damar",
+  "pkg": "io.framework7.myapp",
+  "framework": "vue",
+  "template": "tabs",
+  "cssPreProcessor": false,
+  "bundler": "vite",
+  "cordova": {
+    "folder": "cordova",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "plugins": [
+      "cordova-plugin-statusbar",
+      "cordova-plugin-keyboard",
+      "cordova-plugin-splashscreen"
+    ]
+  },
+  "capacitor": {
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "theming": {
+    "customColor": false,
+    "color": "#007aff",
+    "darkMode": false,
+    "iconFonts": true
+  },
+  "customBuild": false
+}
