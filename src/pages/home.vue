@@ -1,17 +1,12 @@
 <template>
   <f7-page name="home">
     <!-- Top Navbar -->
-    <f7-navbar large :sliding="false">
+    <f7-navbar>
       <f7-nav-left>
         <f7-link icon-ios="f7:menu" icon-md="material:menu" @click="openLeftPanel"></f7-link>
       </f7-nav-left>
-      <f7-nav-title sliding>Damar</f7-nav-title>
-      <f7-nav-right>
-        <f7-link icon-ios="f7:menu" icon-md="material:menu" @click="openRightPanel"></f7-link>
-      </f7-nav-right>
-      <f7-nav-title-large>Damar</f7-nav-title-large>
+      <f7-nav-title sliding>Pondok Pesantren Darul Maarif</f7-nav-title>
     </f7-navbar>
-
     <!-- Page content-->
     <f7-block>
       <p>This is an example of tabs-layout application. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
@@ -50,25 +45,87 @@
         link="/request-and-load/user/123456/"
       ></f7-list-item>
     </f7-list>
-    <f7-panel right cover theme-dark>
-      <f7-page>
-        <f7-list strong inset dividersIos>
-          <f7-button preloader :loading="isLoading" large fill @click="logout">Logout</f7-button>
-        </f7-list>
-      </f7-page>
-    </f7-panel>
+    <f7-block-title>Columns with gap</f7-block-title>
+    <f7-block class="grid grid-cols-2 grid-gap">
+      <f7-card outline-md class="demo-card-header-pic">
+        <f7-card-header
+          valign="bottom"
+          style="background: teal"
+          >Journey To Mountains</f7-card-header
+        >
+        <f7-card-content>
+          <p class="date">Posted on January 21, 2015</p>
+          <p>
+            Quisque eget vestibulum nulla. Quisque quis dui quis ex ultricies efficitur vitae non
+            felis. Phasellus quis nibh hendrerit...
+          </p>
+        </f7-card-content>
+        <f7-card-footer>
+          <f7-button fill panel-open="left">Like</f7-button>
+          <f7-button fill panel-open="right">Read More</f7-button>
+        </f7-card-footer>
+      </f7-card>
+      <f7-card outline-md class="demo-card-header-pic">
+        <f7-card-header
+          valign="bottom"
+          style="background: azure"
+          >Journey To Mountains</f7-card-header
+        >
+        <f7-card-content>
+          <p class="date">Posted on January 21, 2015</p>
+          <p>
+            Quisque eget vestibulum nulla. Quisque quis dui quis ex ultricies efficitur vitae non
+            felis. Phasellus quis nibh hendrerit...
+          </p>
+        </f7-card-content>
+        <f7-card-footer>
+          <f7-block class="grid grid-cols-2 grid-gap">
+          </f7-block>
+          <f7-link>Like</f7-link>
+          <f7-link>Read more</f7-link>
+        </f7-card-footer>
+      </f7-card>
+    </f7-block>
     <f7-panel left cover theme-dark>
       <f7-page>
-        <f7-panel-header class="custom-panel-header">
-          <f7-panel-title>Custom Side Panel</f7-panel-title>
-          <f7-button @click="closeSidePanel">Close</f7-button>
-        </f7-panel-header>
-        <div class="custom-empty-area"></div>
-        <f7-panel-footer class="custom-panel-footer">
-          <f7-button>Button 1</f7-button>
-          <f7-button>Button 2</f7-button>
-          <f7-button>Button 3</f7-button>
-        </f7-panel-footer>
+        <f7-list menu-list strong-ios outline-ios>
+          <f7-list-item
+            link
+            title="Home"
+            :selected="selected === 'about'"
+            @click="() => (selected = 'about')"
+          >
+            <template #media>
+              <f7-icon f7="house" size="24px"></f7-icon>
+            </template>
+          </f7-list-item>
+          <f7-list-item
+            link
+            title="Profile"
+            :selected="selected === 'profile'"
+            @click="() => (selected = 'profile')"
+          >
+            <template #media>
+              <f7-icon md="material:person" ios="f7:person_fill" />
+            </template>
+          </f7-list-item>
+          <f7-list-item
+            link
+            title="Settings"
+            :selected="selected === 'settings'"
+            @click="() => (selected = 'settings')"
+          >
+            <template #media>
+              <f7-icon md="material:settings" ios="f7:gear_alt_fill" />
+            </template>
+          </f7-list-item>
+        </f7-list>
+        <!-- Sticky button at the bottom -->
+        <div class="panel-bottom-button">
+          <f7-list strong inset dividersIos>
+            <f7-button preloader :loading="isLoading" large fill @click="logout">Logout</f7-button>
+          </f7-list>
+        </div>
       </f7-page>
     </f7-panel>
   </f7-page>
@@ -87,9 +144,6 @@ export default {
     openLeftPanel() {
       f7.panel.open('left');
     },
-    openRightPanel() {
-      f7.panel.open('right');
-    },
     logout() {
       this.isLoading = true;
       const token = localStorage.getItem('token');
@@ -102,12 +156,13 @@ export default {
       .then(response => {
         this.isLoading = false;
         if(response.status == 200) {
-          f7.panel.close('right');
+          f7.panel.close('left');
           localStorage.removeItem('token');
           f7.views.main.router.navigate('/login/');
         }
       })
       .catch(error => {
+        f7.panel.close('left');
         this.isLoading = false;
         console.error('Error:', error);
       });
@@ -116,15 +171,13 @@ export default {
 };
 </script>
 <style scoped>
-.custom-panel-header,
-.custom-panel-footer {
-  /* Style the header and footer */
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 20px;
-}
-.custom-empty-area {
-  /* Style the empty middle area */
-  flex-grow: 1;
-}
+  /* Add some styling for the sticky button */
+  .panel-bottom-button {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    text-align: center;
+  }
 </style>
