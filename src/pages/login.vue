@@ -2,23 +2,41 @@
 
 <template>
     <f7-page>
-        <f7-list form>
-            <f7-list-input
-                label="Email"
-                type="email"
-                placeholder="Your email"
-                v-model:value="email"
-            ></f7-list-input>
-            <f7-list-input
-                label="Password"
-                type="password"
-                placeholder="Your password"
-                v-model:value="password"
-            ></f7-list-input>
+        <f7-page-content class="login-page-content">
+          <!-- Vertically Centered Login Form -->
+          <div class="login-form-container">
+            <!-- Your login form goes here -->
+            <f7-list strong-ios dividers-ios inset-ios>
+                <f7-list-input
+                    outline
+                    label="Email"
+                    floating-label
+                    type="email"
+                    placeholder="Your email"
+                    clear-button
+                    v-model:value="email"
+                >
+                <template #media>
+                  <f7-icon icon="demo-list-icon" />
+                </template>
+                </f7-list-input>
+                <f7-list-input
+                    outline
+                    label="Password"
+                    floating-label
+                    type="password"
+                    placeholder="Your password"
+                    clear-button
+                    v-model:value="password"
+                >
+                <template #media>
+                  <f7-icon icon="demo-list-icon" />
+                </template>
+                </f7-list-input>
             </f7-list>
-            <f7-list inset>
-            <f7-list-button @click="login">Login</f7-list-button>
-        </f7-list>
+            <f7-button preloader :loading="isLoading" large fill @click="login">Login</f7-button>
+          </div>
+        </f7-page-content>
     </f7-page>
 </template>
   
@@ -30,6 +48,7 @@
             return {
                 email: '',
                 password: '',
+                isLoading: false,
             };
         },
         props: {
@@ -37,12 +56,14 @@
         },
         methods: {
             login() {
+                this.isLoading = true;
                 // Perform login request to Laravel Passport backend
                 axios.post('http://localhost/damarback/public/api/login', {
                     email: this.email,
                     password: this.password,
                 })
                 .then(response => {
+                    this.isLoading = false;
                     const token = response.data.data.token;
                     // Store the token in LocalStorage or Vuex (for a more advanced state management)
                     localStorage.setItem('token', token);
@@ -53,10 +74,26 @@
                 .catch(error => {
                 console.error(error);
                 // Display an error message
+                    this.isLoading = false;
                     f7.dialog.alert('Login failed. Please check your email and password.');
                 });
             },
         },
     };
-  </script>
+</script>
+<style scoped>
+.login-page-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* 100% viewport height */
+}
+
+.login-form-container {
+  text-align: center;
+  max-width: 500px; /* Set a maximum width for the login form container if needed */
+  width: 100%;
+  margin: auto; /* Center the container horizontally */
+}
+</style>
   
