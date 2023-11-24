@@ -6,6 +6,7 @@
           <!-- Vertically Centered Login Form -->
           <div class="login-form-container">
             <!-- Your login form goes here -->
+            <div class="item-media"><img src="icons/256x256.png" width="150" /></div>
             <f7-list strong-ios dividers-ios inset-ios>
                 <f7-list-input
                     outline
@@ -28,13 +29,14 @@
                     placeholder="Your password"
                     clear-button
                     v-model:value="password"
+                    v-on:keydown.enter="login"
                 >
                 <template #media>
                   <f7-icon icon="demo-list-icon" />
                 </template>
                 </f7-list-input>
+                <f7-list-button><f7-button preloader :loading="isLoading" large fill @click="login">Login</f7-button></f7-list-button>
             </f7-list>
-            <f7-button preloader :loading="isLoading" large fill @click="login">Login</f7-button>
           </div>
         </f7-page-content>
     </f7-page>

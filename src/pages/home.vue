@@ -17,6 +17,7 @@
     <f7-list strong inset dividersIos>
       <f7-list-item link="/about/" title="About"></f7-list-item>
       <f7-list-item link="/form/" title="Form"></f7-list-item>
+      <f7-list-item link="/catalog/" title="Catalog"></f7-list-item>
     </f7-list>
 
     <f7-block-title>Modals</f7-block-title>
@@ -91,9 +92,9 @@
         <f7-list menu-list strong-ios outline-ios>
           <f7-list-item
             link
-            title="Home"
-            :selected="selected === 'about'"
-            @click="() => (selected = 'about')"
+            title="Kelas"
+            :selected="selectedMenu === 'classroom'"
+            @click="openClassroom()"
           >
             <template #media>
               <f7-icon f7="house" size="24px"></f7-icon>
@@ -101,9 +102,9 @@
           </f7-list-item>
           <f7-list-item
             link
-            title="Profile"
-            :selected="selected === 'profile'"
-            @click="() => (selected = 'profile')"
+            title="Santri"
+            :selected="selectedMenu === 'student'"
+            @click="() => (selectedMenu = 'student')"
           >
             <template #media>
               <f7-icon md="material:person" ios="f7:person_fill" />
@@ -111,9 +112,19 @@
           </f7-list-item>
           <f7-list-item
             link
-            title="Settings"
-            :selected="selected === 'settings'"
-            @click="() => (selected = 'settings')"
+            title="Absen"
+            :selected="selectedMenu === 'attendance'"
+            @click="() => (selectedMenu = 'attendance')"
+          >
+            <template #media>
+              <f7-icon md="material:settings" ios="f7:gear_alt_fill" />
+            </template>
+          </f7-list-item>
+          <f7-list-item
+            link
+            title="Pembayaran"
+            :selected="selectedMenu === 'billing'"
+            @click="() => (selectedMenu = 'billing')"
           >
             <template #media>
               <f7-icon md="material:settings" ios="f7:gear_alt_fill" />
@@ -137,12 +148,20 @@ import { f7 } from 'framework7-vue';
 export default {
   data() {
       return {
-          isLoading: false
+          isLoading: false,
+          selectedMenu: '',
       };
+  },
+  props: {
+    f7router: Object,
   },
   methods: {
     openLeftPanel() {
       f7.panel.open('left');
+    },
+    openClassroom() {
+      this.selectedMenu = "classroom";
+      this.f7router.navigate('/classroom/');
     },
     logout() {
       this.isLoading = true;

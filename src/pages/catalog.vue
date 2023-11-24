@@ -1,6 +1,6 @@
 <template>
   <f7-page name="catalog">
-    <f7-navbar title="Catalog"></f7-navbar>
+    <f7-navbar title="Catalog" back-link="Back"></f7-navbar>
     <f7-list strong dividers-ios outline-ios inset-md>
       <f7-list-item
         v-for="product in products"
