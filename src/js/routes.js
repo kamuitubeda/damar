@@ -1,6 +1,8 @@
 import HomePage from '../pages/home.vue';
 import LoginPage from '../pages/login.vue';
 import ClassroomPage from '../pages/classroom.vue';
+import StudentPage from '../pages/student.vue';
+
 import AboutPage from '../pages/about.vue';
 import FormPage from '../pages/form.vue';
 import CatalogPage from '../pages/catalog.vue';
@@ -23,6 +25,10 @@ var routes = [
   {
     path: '/classroom/',
     component: ClassroomPage,
+  },
+  {
+    path: '/student/',
+    component: StudentPage,
   },
   {
     path: '/about/',

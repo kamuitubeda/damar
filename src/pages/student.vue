@@ -1,9 +1,9 @@
 <template>
-    <f7-page name="classroom">
-      <f7-navbar title="Ruang Kelas" back-link="Back"></f7-navbar>
+    <f7-page name="student">
+      <f7-navbar title="Daftar Siswa" back-link="Back"></f7-navbar>
       <f7-list v-if="isLoading" dividers-ios strong-ios outline-ios>
         <f7-list-item
-            v-for="n in 7"
+            v-for="n in 0"
             :key="n"
             class="skeleton-text skeleton-effect-fade"
             title="Full Name"
@@ -16,10 +16,10 @@
       </f7-list>
       <f7-list v-else dividers-ios strong-ios outline-ios>
         <f7-list-item
-          v-for="classroom in classrooms"
-          :key="classroom.id"
-          :title="classroom.name"
-          :link="`/classroom/${classroom.id}/`"
+          v-for="student in students"
+          :key="student.id"
+          :title="student.name"
+          :link="`/student/${student.id}/`"
         ></f7-list-item>
       </f7-list>
     </f7-page>
@@ -32,7 +32,7 @@
   export default {
     data() {
         return {
-            classrooms: [],
+            students: [],
             isLoading: false,
         };
     },
@@ -46,10 +46,10 @@
         init() {
             this.isLoading = true;
             // Perform login request to Laravel Passport backend
-            axios.get('http://localhost/damarback/public/api/classrooms')
+            axios.get('http://localhost/damarback/public/api/students')
               .then(response => {
                 this.isLoading = false;
-                this.classrooms = response.data.data;
+                this.students = response.data.data;
             })
               .catch(error => {
                 this.isLoading = false;

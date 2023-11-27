@@ -17,9 +17,9 @@
                     clear-button
                     v-model:value="email"
                 >
-                <template #media>
-                  <f7-icon icon="demo-list-icon" />
-                </template>
+                    <template #media>
+                      <f7-icon icon="demo-list-icon" />
+                    </template>
                 </f7-list-input>
                 <f7-list-input
                     outline
@@ -31,11 +31,13 @@
                     v-model:value="password"
                     v-on:keydown.enter="login"
                 >
-                <template #media>
-                  <f7-icon icon="demo-list-icon" />
-                </template>
+                    <template #media>
+                      <f7-icon icon="demo-list-icon" />
+                    </template>
                 </f7-list-input>
-                <f7-list-button><f7-button preloader :loading="isLoading" large fill @click="login">Login</f7-button></f7-list-button>
+                <f7-list-button>
+                    <f7-button preloader :loading="isLoading" large fill grid-gap @click="login">Login</f7-button>
+                </f7-list-button>
             </f7-list>
           </div>
         </f7-page-content>

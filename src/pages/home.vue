@@ -94,7 +94,7 @@
             link
             title="Kelas"
             :selected="selectedMenu === 'classroom'"
-            @click="openClassroom()"
+            @click="openClassroomPage()"
           >
             <template #media>
               <f7-icon f7="house" size="24px"></f7-icon>
@@ -104,7 +104,7 @@
             link
             title="Santri"
             :selected="selectedMenu === 'student'"
-            @click="() => (selectedMenu = 'student')"
+            @click="openStudentPage()"
           >
             <template #media>
               <f7-icon md="material:person" ios="f7:person_fill" />
@@ -159,9 +159,13 @@ export default {
     openLeftPanel() {
       f7.panel.open('left');
     },
-    openClassroom() {
+    openClassroomPage() {
       this.selectedMenu = "classroom";
       this.f7router.navigate('/classroom/');
+    },
+    openStudentPage() {
+      this.selectedMenu = "student";
+      this.f7router.navigate('/student/');
     },
     logout() {
       this.isLoading = true;
