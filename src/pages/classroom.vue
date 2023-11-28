@@ -45,13 +45,16 @@
     methods: {
         init() {
             this.isLoading = true;
+            const token = localStorage.getItem('token');
             // Perform login request to Laravel Passport backend
-            axios.get('http://localhost/damarback/public/api/classrooms')
-              .then(response => {
+            axios.get('http://localhost/damarback/public/api/classrooms', {
+              headers: {
+                Authorization: `Bearer ${token}` // Set Authorization header with bearer token
+              }
+            }).then(response => {
                 this.isLoading = false;
                 this.classrooms = response.data.data;
-            })
-              .catch(error => {
+            }).catch(error => {
                 this.isLoading = false;
                 console.error(error)
             })

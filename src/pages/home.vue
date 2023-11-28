@@ -162,10 +162,12 @@ export default {
     openClassroomPage() {
       this.selectedMenu = "classroom";
       this.f7router.navigate('/classroom/');
+      f7.panel.close('left');
     },
     openStudentPage() {
       this.selectedMenu = "student";
       this.f7router.navigate('/student/');
+      f7.panel.close('left');
     },
     logout() {
       this.isLoading = true;
@@ -179,8 +181,8 @@ export default {
       .then(response => {
         this.isLoading = false;
         if(response.status == 200) {
-          f7.panel.close('left');
           localStorage.removeItem('token');
+          f7.panel.close('left');
           f7.views.main.router.navigate('/login/');
         }
       })

@@ -3,7 +3,7 @@
       <f7-navbar title="Daftar Siswa" back-link="Back"></f7-navbar>
       <f7-list v-if="isLoading" dividers-ios strong-ios outline-ios>
         <f7-list-item
-            v-for="n in 0"
+            v-for="n in 10"
             :key="n"
             class="skeleton-text skeleton-effect-fade"
             title="Full Name"
@@ -45,20 +45,21 @@
     methods: {
         init() {
             this.isLoading = true;
+            const token = localStorage.getItem('token');
             // Perform login request to Laravel Passport backend
-            axios.get('http://localhost/damarback/public/api/students')
-              .then(response => {
+            axios.get('http://localhost/damarback/public/api/students', {
+              headers: {
+                Authorization: `Bearer ${token}` // Set Authorization header with bearer token
+              }
+            }).then(response => {
                 this.isLoading = false;
                 this.students = response.data.data;
-            })
-              .catch(error => {
+            }).catch(error => {
                 this.isLoading = false;
                 console.error(error)
             })
         },
     },
   };
-
-
   </script>
   

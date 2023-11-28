@@ -58,7 +58,35 @@
         props: {
             f7router: Object,
         },
+        mounted() {
+          this.init();
+        },
         methods: {
+            init() {
+                const token = localStorage.getItem('token');
+
+                if (token) {
+                    // Token is present, attempt to verify authentication
+                    axios.get('http://localhost/damarback/public/api/me', {
+                      headers: {
+                        Authorization: `Bearer ${token}`
+                      }
+                    })
+                    .then(response => {
+                      if (response.status === 200) {
+                        // Authentication successful, redirect to dashboard or homepage
+                        f7.views.main.router.navigate('/');
+                      } else {
+                        // Authentication failed, remove token and proceed with login
+                        localStorage.removeItem('token');
+                      }
+                    })
+                    .catch(error => {
+                      console.error('Failed to verify authentication:', error);
+                      localStorage.removeItem('token');
+                    });
+                }
+            },
             login() {
                 this.isLoading = true;
                 // Perform login request to Laravel Passport backend
