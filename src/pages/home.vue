@@ -9,9 +9,36 @@
     </f7-navbar>
     <!-- Page content-->
     <f7-block>
-      <p>This is an example of tabs-layout application. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
-
-      <p>Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.</p>
+      <div class="grid grid-cols-3 grid-gap">
+        <div class="dashboard-header">
+          <a href="#" class="dashboard-card green-card">
+            <div class="overlay"></div>
+            <div class="circle">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-notebook" width="80" height="80" viewBox="0 0 24 24" stroke-width="0.5" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18" /><path d="M13 8l2 0" /><path d="M13 12l2 0" /></svg>
+            </div>
+            <p>Absensi</p>
+          </a>
+        </div>
+        <div class="dashboard-header">
+          <a href="#" class="dashboard-card purple-card">
+            <div class="overlay"></div>
+            <div class="circle">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cash" width="80" height="80" viewBox="0 0 24 24" stroke-width="0.5" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 9m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" /><path d="M14 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2" /></svg>
+            </div>
+            <p>Pembayaran</p>
+          </a>
+        </div>
+        <div class="dashboard-header">
+          <a href="#" class="dashboard-card blue-card">
+            <div class="overlay"></div>
+            <div class="circle">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-spreadsheet" width="80" height="80" viewBox="0 0 24 24" stroke-width="0.5" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M8 11h8v7h-8z" /><path d="M8 15h8" /><path d="M11 11v7" /></svg>
+            </div>
+            <p>Laporan</p>
+          </a>
+        </div>
+      </div>
+      
     </f7-block>
     <f7-block-title>Navigation</f7-block-title>
     <f7-list strong inset dividersIos>
