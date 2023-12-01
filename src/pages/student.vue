@@ -1,10 +1,13 @@
 <template>
     <f7-page name="student">
         <f7-navbar title="Daftar Siswa" back-link="Back"></f7-navbar>
-        <div class="grid grid-cols-1">
+        <div>
             <f7-searchbar v-if="!isLoading" search-container=".student-list" search-in=".item-title"></f7-searchbar>
         </div>
         <f7-list v-if="isLoading" dividers-ios strong-ios outline-ios>
+            <div>
+                <f7-searchbar class="skeleton-input skeleton-effect-fade"></f7-searchbar>
+            </div>
             <f7-list-item
                 v-for="n in 10"
                 :key="n"
