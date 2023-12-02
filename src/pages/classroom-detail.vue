@@ -1,11 +1,9 @@
 <template>
   <f7-page>
-    <f7-navbar title="Detail Siswa" back-link="Back"></f7-navbar>
+    <f7-navbar title="Detail Kelas" back-link="Back"></f7-navbar>
     <f7-block strong inset>
       <ul>
-        <li><b>Nama:</b> {{ student.name }}</li>
-        <li><b>Alamat:</b> {{ student.address }}</li>
-        <li><b>No. Telepon:</b> {{ student.phone }}</li>
+        <li><b>Nama:</b> {{ classroom.name }}</li>
       </ul>
     </f7-block>
     <f7-block strong inset>
@@ -14,13 +12,13 @@
   </f7-page>
 </template>
 <script>
-import { useStudentsStore } from '../stores/student';
+import { useClassroomsStore } from '../stores/classroom';
 
 export default {
   data() {
       return {
-          students: [],
-          student: {},
+          classrooms: [],
+          classroom: {},
           loading: true,
       };
   },
@@ -34,9 +32,9 @@ export default {
   methods: {
       async init() {
           this.loading = true;
-          const studentId = this.f7route.params.id;
-          const store = useStudentsStore();
-          this.student = store.findStudentById(studentId);
+          const classroomId = this.f7route.params.id;
+          const store = useClassroomsStore();
+          this.classroom = store.findClassroomById(classroomId);
           this.loading = false;
       },
   },

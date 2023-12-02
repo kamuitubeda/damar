@@ -34,7 +34,7 @@
     </f7-page>
 </template>
 <script>
-import { useStudentsStore } from '../stores/store';
+import { useStudentsStore } from '../stores/student';
 
 export default {
     data() {

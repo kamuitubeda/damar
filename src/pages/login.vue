@@ -3,43 +3,43 @@
 <template>
     <f7-page>
         <f7-page-content class="login-page-content">
-          <!-- Vertically Centered Login Form -->
-          <div class="login-form-container">
-            <!-- Your login form goes here -->
-            <div class="item-media"><img src="icons/256x256.png" width="150" /></div>
-            <f7-list strong-ios dividers-ios inset-ios>
-                <f7-list-input
-                    outline
-                    label="Email"
-                    floating-label
-                    type="email"
-                    placeholder="Your email"
-                    clear-button
-                    v-model:value="email"
-                >
-                    <template #media>
-                      <f7-icon icon="demo-list-icon" />
-                    </template>
-                </f7-list-input>
-                <f7-list-input
-                    outline
-                    label="Password"
-                    floating-label
-                    type="password"
-                    placeholder="Your password"
-                    clear-button
-                    v-model:value="password"
-                    v-on:keydown.enter="login"
-                >
-                    <template #media>
-                      <f7-icon icon="demo-list-icon" />
-                    </template>
-                </f7-list-input>
-                <f7-list-button>
-                    <f7-button preloader :loading="isLoading" large fill grid-gap @click="login">Login</f7-button>
-                </f7-list-button>
-            </f7-list>
-          </div>
+            <!-- Vertically Centered Login Form -->
+            <div class="login-form-container">
+                <!-- Your login form goes here -->
+                <div class="item-media"><img src="icons/256x256.png" width="150" /></div>
+                <f7-list strong-ios dividers-ios inset-ios>
+                    <f7-list-input
+                        outline
+                        label="Email"
+                        floating-label
+                        type="email"
+                        placeholder="Your email"
+                        clear-button
+                        v-model:value="email"
+                    >
+                        <template #media>
+                          <f7-icon icon="demo-list-icon" />
+                        </template>
+                    </f7-list-input>
+                    <f7-list-input
+                        outline
+                        label="Password"
+                        floating-label
+                        type="password"
+                        placeholder="Your password"
+                        clear-button
+                        v-model:value="password"
+                        v-on:keydown.enter="login"
+                    >
+                        <template #media>
+                          <f7-icon icon="demo-list-icon" />
+                        </template>
+                    </f7-list-input>
+                    <f7-list-button>
+                        <f7-button preloader :loading="isLoading" large fill grid-gap @click="login">Login</f7-button>
+                    </f7-list-button>
+                </f7-list>
+            </div>
         </f7-page-content>
     </f7-page>
 </template>
@@ -63,6 +63,7 @@
         },
         methods: {
             init() {
+                this.isLoading = true;
                 const token = localStorage.getItem('token');
 
                 if (token) {
@@ -75,15 +76,18 @@
                     .then(response => {
                       if (response.status === 200) {
                         // Authentication successful, redirect to dashboard or homepage
+                        this.isLoading = false;
                         f7.views.main.router.navigate('/');
                       } else {
                         // Authentication failed, remove token and proceed with login
                         localStorage.removeItem('token');
+                        this.isLoading = false;
                       }
                     })
                     .catch(error => {
                       console.error('Failed to verify authentication:', error);
                       localStorage.removeItem('token');
+                      this.isLoading = false;
                     });
                 }
             },
