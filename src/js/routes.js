@@ -2,6 +2,7 @@ import HomePage from '../pages/home.vue';
 import LoginPage from '../pages/login.vue';
 import ClassroomPage from '../pages/classroom.vue';
 import StudentPage from '../pages/student.vue';
+import StudentDetailPage from '../pages/student-detail.vue';
 import AgendaHarianPage from '../pages/agenda-harian.vue';
 
 import AboutPage from '../pages/about.vue';
@@ -30,6 +31,14 @@ var routes = [
   {
     path: '/student/',
     component: StudentPage,
+  },
+  {
+    path: '/student/:id/',
+    component: StudentDetailPage,
+  },
+  {
+    path: '/product/:id/',
+    component: ProductPage,
   },
   {
     path: '/agenda-harian/',

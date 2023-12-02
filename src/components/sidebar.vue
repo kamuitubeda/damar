@@ -27,7 +27,7 @@
           @click="() => (selectedMenu = 'attendance')"
         >
           <template #media>
-            <f7-icon md="material:settings" ios="f7:gear_alt_fill" />
+            <f7-icon md="material:fact_check" ios="f7:checkmark_square" />
           </template>
         </f7-list-item>
         <f7-list-item
@@ -36,7 +36,7 @@
           @click="() => (selectedMenu = 'billing')"
         >
           <template #media>
-            <f7-icon md="material:settings" ios="f7:gear_alt_fill" />
+            <f7-icon md="material:payments" ios="f7:wallet_fill" />
           </template>
         </f7-list-item>
         <f7-list-item
@@ -45,7 +45,7 @@
           @click="openAgendaHarianPage()"
         >
           <template #media>
-            <f7-icon md="material:settings" ios="f7:gear_alt_fill" />
+            <f7-icon md="material:event_repeat" ios="f7:clock" />
           </template>
         </f7-list-item>
       </f7-list>
@@ -60,12 +60,14 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { f7 } from 'framework7-vue';
 export default {
   name: 'Sidebar',
   data() {
       return {
-          selectedMenu: ''
+          selectedMenu: '',
+          isLoading: false
       };
   },
   methods: {
