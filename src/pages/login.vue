@@ -90,6 +90,8 @@
                       this.isLoading = false;
                     });
                 }
+
+                this.isLoading = false;
             },
             login() {
                 this.isLoading = true;

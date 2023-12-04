@@ -135,6 +135,9 @@
 import axios from 'axios';
 import { f7 } from 'framework7-vue';
 import Sidebar from '../components/sidebar.vue';
+import { useClassroomsStore } from '../stores/classroom';
+import { useStudentsStore } from '../stores/student';
+
 export default {
   components: {
     Sidebar
@@ -146,9 +149,29 @@ export default {
           date: new Date(),
       };
   },
+  async mounted() {
+    await this.init();
+  },
   methods: {
     openLeftPanel() {
       f7.panel.open('left');
+    },
+    async init() {
+        const classroomStore = useClassroomsStore();
+
+        if (!classroomStore.classrooms || classroomStore.classrooms.length === 0) {
+            await classroomStore.fetchClassroomsData();
+            this.classrooms = classroomStore.classrooms;
+        }
+
+        const studentStore = useStudentsStore();
+
+        if (!studentStore.students || studentStore.students.length === 0) {
+            this.loading = true;
+            await studentStore.fetchStudentsData();
+            this.students = studentStore.students;
+            this.loading = false;
+        }
     },
   },
   props: {

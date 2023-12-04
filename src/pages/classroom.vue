@@ -32,11 +32,13 @@
 </template>
 <script>
 import { useClassroomsStore } from '../stores/classroom';
+import { useStudentClassesStore } from '../stores/studentclass';
 
 export default {
     data() {
         return {
             classrooms: [],
+            studentclasses: [],
             loading: false,
         };
     },
@@ -48,19 +50,27 @@ export default {
     },
     methods: {
         async init() {
-            const store = useClassroomsStore();
-            this.classrooms = store.classrooms;
+            this.loading = true;
 
-            if (!store.classrooms || store.classrooms.length === 0) {
-                this.loading = true;
-                await store.fetchClassroomsData();
-                this.classrooms = store.classrooms;
-                this.loading = false;
+            const classroomStore = useClassroomsStore();
+            this.classrooms = classroomStore.classrooms;
+
+            if (!classroomStore.classrooms || classroomStore.classrooms.length === 0) {
+                await classroomStore.fetchClassroomsData();
+                this.classrooms = classroomStore.classrooms;
             }
+
+            const studentStore = useStudentClassesStore();
+            this.studentclasses = studentStore.studentclasses;
+
+            if (!studentStore.studentclasses || studentStore.studentclasses.length === 0) {
+                await studentStore.fetchStudentClassesData();
+                this.studentclasses = studentStore.studentclasses;
+            }
+
+            this.loading = false;
         },
     },
 };
-
-
-  </script>
+</script>
   

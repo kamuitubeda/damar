@@ -51,13 +51,13 @@ export default {
     },
     methods: {
         async init() {
-            const store = useStudentsStore();
-            this.students = store.students;
+            const studentStore = useStudentsStore();
+            this.students = studentStore.students;
 
-            if (!store.students || store.students.length === 0) {
+            if (!studentStore.students || studentStore.students.length === 0) {
                 this.loading = true;
-                await store.fetchStudentsData();
-                this.students = store.students;
+                await studentStore.fetchStudentsData();
+                this.students = studentStore.students;
                 this.loading = false;
             }
         },
