@@ -23,8 +23,8 @@
         </f7-list-item>
         <f7-list-item
           link
-          title="Absen"
-          @click="() => (selectedMenu = 'attendance')"
+          title="Absensi"
+          @click="openAttendancePage()"
         >
           <template #media>
             <f7-icon md="material:fact_check" ios="f7:checkmark_square" />
@@ -79,6 +79,11 @@ export default {
     openStudentPage() {
       this.selectedMenu = "student";
       this.f7router.navigate('/student/');
+      f7.panel.close('left');
+    },
+    openAttendancePage() {
+      this.selectedMenu = "attendance";
+      this.f7router.navigate('/attendance/');
       f7.panel.close('left');
     },
     openAgendaHarianPage() {

@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "npm run dev",
+    "type": "module",
     "dev": "cross-env NODE_ENV=development vite",
     "build": "cross-env NODE_ENV=production vite build && npx workbox generateSW workbox-config.js",
     "build-cordova": "cross-env TARGET=cordova cross-env NODE_ENV=production vite build && node ./build/build-cordova.js && cd cordova && cordova build",
