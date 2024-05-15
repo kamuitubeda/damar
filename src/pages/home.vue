@@ -12,7 +12,7 @@
     </f7-navbar>
     <!-- Page content-->
     <f7-block>
-      <div class="grid grid-cols-3 grid-gap">
+      <div class="grid grid-cols-3">
         <div class="card dashboard-card">
           <div class="card-content">
             <div class="card-content-inner">

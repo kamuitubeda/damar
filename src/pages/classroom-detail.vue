@@ -1,9 +1,6 @@
 <template>
   <f7-page>
-    <f7-navbar title="Detail Kelas" back-link="Back"></f7-navbar>
-    <f7-block strong inset>
-      <b>{{ classroom.name }}</b>
-    </f7-block>
+    <f7-navbar :title="titleName" back-link="Back"></f7-navbar>
     <f7-block strong inset>
       <b>Daftar Siswa {{ classroom.name }}</b>
     </f7-block>
@@ -26,6 +23,7 @@ import { useStudentClassesStore } from '../stores/studentclass';
 export default {
   data() {
       return {
+          titleName: '',
           classroom: {},
           students: [],
           loading: true,
@@ -45,6 +43,7 @@ export default {
 
           const classroomStore = useClassroomsStore();
           this.classroom = classroomStore.findClassroomById(classroomId);
+          this.titleName = "Detail " + this.classroom.name;
 
           const studentStore = useStudentClassesStore();
           this.students = studentStore.listAllStudentByClassId(classroomId);
