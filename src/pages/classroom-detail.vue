@@ -8,9 +8,9 @@
       <f7-list dividers-ios strong-ios outline-ios class="classroom-list searchbar-found">
           <f7-list-item
             v-for="student in students"
-            :key="student.id"
-            :title="student.name"
-            :link="`/student/${student.id}/`"
+            :key="student.student_id"
+            :title="student.student_name"
+            :link="`/student/${student.student_id}/`"
           ></f7-list-item>
       </f7-list>
     </f7-block>
@@ -46,7 +46,13 @@ export default {
           this.titleName = "Detail " + this.classroom.name;
 
           const studentStore = useStudentClassesStore();
-          this.students = studentStore.listAllStudentByClassId(classroomId);
+
+          try {
+            const studentsPromise = studentStore.listAllStudentByClassId(classroomId);
+            this.students = await studentsPromise;
+          } catch (error) {
+            console.error('Error loading students:', error);
+          }
 
           this.loading = false;
       },

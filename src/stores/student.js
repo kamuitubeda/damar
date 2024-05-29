@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
+import { supabase } from '../js/supabase.js'
 
 export const useStudentsStore = defineStore('students', {
   state: () => ({
@@ -9,17 +9,15 @@ export const useStudentsStore = defineStore('students', {
   actions: {
     // Actions for manipulating state
     async fetchStudentsData() {
-      const token = localStorage.getItem('token');
-      // Perform login request to Laravel Passport backend
-      await axios.get('http://localhost/damarback/public/api/students', {
-        headers: {
-          Authorization: `Bearer ${token}` // Set Authorization header with bearer token
-        }
-      }).then(response => {
-          this.students = response.data.data;
-      }).catch(error => {
-          console.error(error);
-      })
+      const { data, error } = await supabase
+        .from('students')
+        .select('*')
+      
+      if (error) {
+        console.error('Error fetching data:', error)
+      } else {
+        this.students = data
+      }
     },
 
     findStudentById(targetId) {

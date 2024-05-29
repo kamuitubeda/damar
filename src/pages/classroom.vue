@@ -24,7 +24,7 @@
             <f7-list-item
               v-for="classroom in classrooms"
               :key="classroom.id"
-              :title="classroom.name"
+              :title="classroom.level + ' ' + classroom.name"
               :link="`/classroom/${classroom.id}/`"
             ></f7-list-item>
         </f7-list>

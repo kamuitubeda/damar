@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
+import { supabase } from '../js/supabase.js'
 
 export const useStudentClassesStore = defineStore('studentclass', {
   state: () => ({
@@ -9,27 +9,24 @@ export const useStudentClassesStore = defineStore('studentclass', {
   actions: {
     // Actions for manipulating state
     async fetchStudentClassesData() {
-      const token = localStorage.getItem('token');
-      // Perform login request to Laravel Passport backend
-      await axios.get('http://localhost/damarback/public/api/class/students', {
-        headers: {
-          Authorization: `Bearer ${token}` // Set Authorization header with bearer token
-        }
-      }).then(response => {
-          this.studentclasses = response.data.data.classrooms;
-      }).catch(error => {
-          console.error(error);
-      })
+      const { data, error } = await supabase.rpc('get_classes_with_students');
+
+      if (error) {
+        console.error('Error loading classes:', error);
+        return;
+      } else {
+        this.studentclasses = data;
+      }
     },
 
-    listAllStudentByClassId(classId) {
-      const student = this.studentclasses.find(classroom => classroom.id == classId);
+    async listAllStudentByClassId(classId) {
+      const { data, error } = await supabase.rpc('get_students_in_class', { classid: classId });
 
-      if (student) {
-          const studentsInClassroom = student.students;
-          return studentsInClassroom;
+      if (error) {
+        console.error('Error loading students:', error);
+        return [];
       } else {
-          return null;
+        return data;
       }
     },
 
