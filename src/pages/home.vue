@@ -66,95 +66,71 @@
         </div>
       </div>
     </f7-block>
-    <f7-block-title>Agenda</f7-block-title>
+
+    <!-- Section for Berita dan Pengumuman Terbaru -->
+    <f7-block-title class="section-title">Pengumuman Terbaru</f7-block-title>
+    <f7-card v-for="(announcement, index) in announcements" :key="index" class="announcement-card">
+      <div class="announcement-card-image-container">
+        <img :srcset="announcement.image" alt="Announcement Image" class="announcement-card-image" sizes="(max-width: 600px) 600px, (max-width: 1000px) 1000px, 1200px">
+      </div>
+      <div class="announcement-card-content">
+        <div class="announcement-card-header">{{ announcement.title }}</div>
+        <p class="announcement-card-content-text">{{ announcement.content }}</p>
+      </div>
+    </f7-card>
+
+
+
+    <!-- Section for Agenda Terdekat -->
+    <f7-block-title class="section-title">Agenda Terdekat</f7-block-title>
     <div class="timeline">
       <div class="timeline-item">
-        <div class="timeline-item-date">21 <small>DEC</small></div>
         <div class="timeline-item-divider"></div>
         <div class="timeline-item-content">
           <div class="timeline-item-inner">
-            <div class="timeline-item-time">12:56</div>
-            <div class="timeline-item-title">Item Title</div>
-            <div class="timeline-item-subtitle">Item Subtitle</div>
+            <div class="timeline-item-time">17 Juni 2024</div>
+            <div class="timeline-item-title">Study Tour Siswa Kelas XII</div>
             <div class="timeline-item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor fugiat ipsam hic porro
-              enim, accusamus perferendis, quas commodi alias quaerat eius nemo deleniti. Odio quasi
-              quos quis iure, aperiam pariatur?
+              Study tour ke Jogja dan UIN Sunan Kalijaga bagi siswa MA kelas XII.
             </div>
           </div>
         </div>
       </div>
       <div class="timeline-item">
-        <div class="timeline-item-date">22 <small>DEC</small></div>
         <div class="timeline-item-divider"></div>
         <div class="timeline-item-content">
           <div class="timeline-item-inner">
-            <div class="timeline-item-time">12:56</div>
-            <div class="timeline-item-title">Item Title</div>
-            <div class="timeline-item-subtitle">Item Subtitle</div>
+            <div class="timeline-item-time">25 Juni 2024</div>
+            <div class="timeline-item-title">Haflah Akhirussanah</div>
             <div class="timeline-item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor fugiat ipsam hic porro
-              enim, accusamus perferendis, quas commodi alias quaerat eius nemo deleniti. Odio quasi
-              quos quis iure, aperiam pariatur?
+              Haul Akbar ke-30 dan Haflah Akhirussanah Pondok Pesantren Darul Maarif
             </div>
           </div>
         </div>
       </div>
       <div class="timeline-item">
-        <div class="timeline-item-date">28 <small>DEC</small></div>
         <div class="timeline-item-divider"></div>
         <div class="timeline-item-content">
           <div class="timeline-item-inner">
-            <div class="timeline-item-time">12:56</div>
-            <div class="timeline-item-title">Item Title</div>
-            <div class="timeline-item-subtitle">Item Subtitle</div>
+            <div class="timeline-item-time">26 Juni 2024 - 10 Juli 2024</div>
+            <div class="timeline-item-title">Libur Pondok dan Sekolah</div>
             <div class="timeline-item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor fugiat ipsam hic porro
-              enim, accusamus perferendis, quas commodi alias quaerat eius nemo deleniti. Odio quasi
-              quos quis iure, aperiam pariatur?
+              Semua santri pondok harap kembali pada tanggal 9 Juli 2024. Karena tanggal 10 Juli 2024 pembelajaran sudah mulai aktif.
             </div>
           </div>
         </div>
       </div>
     </div>
-    <f7-block-title>Navigation</f7-block-title>
-    <f7-list strong inset dividersIos>
-      <f7-list-item link="/about/" title="About"></f7-list-item>
-      <f7-list-item link="/form/" title="Form"></f7-list-item>
-      <f7-list-item link="/catalog/" title="Catalog"></f7-list-item>
-    </f7-list>
 
-    <f7-block-title>Modals</f7-block-title>
-    <f7-block class="grid grid-cols-2 grid-gap">
-      <f7-button fill popup-open="#my-popup">Popup</f7-button>
-      <f7-button fill login-screen-open="#my-login-screen">Login Screen</f7-button>
-    </f7-block>
-
-    <f7-block-title>Panels</f7-block-title>
-    <f7-block class="grid grid-cols-2 grid-gap">
-      <f7-button fill panel-open="left">Left Panel</f7-button>
-      <f7-button fill panel-open="right">Right Panel</f7-button>
-    </f7-block>
-
-    <f7-list strong inset dividersIos>
-      <f7-list-item
-        title="Dynamic (Component) Route"
-        link="/dynamic-route/blog/45/post/125/?foo=bar#about"
-      ></f7-list-item>
-      <f7-list-item
-        title="Default Route (404)"
-        link="/load-something-that-doesnt-exist/"
-      ></f7-list-item>
-      <f7-list-item
-        title="Request Data & Load"
-        link="/request-and-load/user/123456/"
-      ></f7-list-item>
+    <!-- Section for Link Cepat -->
+    <f7-block-title class="section-title">Link Cepat</f7-block-title>
+    <f7-list inset>
+      <f7-list-item v-for="(link, index) in quickLinks" :key="index" :title="link.title" :link="link.url"></f7-list-item>
     </f7-list>
     <Sidebar :f7router="f7router" />
   </f7-page>
 </template>
 <script>
-import axios from 'axios';
 import { f7 } from 'framework7-vue';
 import Sidebar from '../components/sidebar.vue';
 import { useClassroomsStore } from '../stores/classroom';
@@ -169,10 +145,16 @@ export default {
           isLoading: false,
           selectedMenu: '',
           date: new Date(),
+          announcements: [],
+          upcomingEvents: [],
+          quickLinks: []
       };
   },
   async mounted() {
     await this.init();
+    this.announcements = await this.fetchAnnouncements();
+    this.upcomingEvents = await this.fetchUpcomingEvents();
+    this.quickLinks = await this.fetchQuickLinks();
   },
   methods: {
     openLeftPanel() {
@@ -195,6 +177,30 @@ export default {
             this.loading = false;
         }
     },
+    async fetchAnnouncements() {
+      // Fetch announcements from your data source
+      // Example: return await supabase.from('announcements').select('*');
+      return [
+        { title: 'Info Pendaftaran Santri Baru', content: 'Untuk santri dan siswa MTs dan MA Darul Maarif tahun pelajaran 2024/2025', image: 'https://via.placeholder.com/600' },
+        { title: 'Pengumuman 2', content: 'Isi pengumuman 2', image: 'https://via.placeholder.com/600' }
+      ];
+    },
+    async fetchUpcomingEvents() {
+      // Fetch upcoming events from your data source
+      // Example: return await supabase.from('events').select('*');
+      return [
+        { title: 'Study Tour untuk Siswa Kelas XII', date: '2024-06-02' },
+        { title: 'Haflah Akhirussanah', date: '2024-06-01' }
+      ];
+    },
+    async fetchQuickLinks() {
+      // Fetch quick links from your data source
+      // Example: return await supabase.from('quick_links').select('*');
+      return [
+        { title: 'Link 1', url: '/link1' },
+        { title: 'Link 2', url: '/link2' }
+      ];
+    }
   },
   props: {
     f7router: Object,
@@ -202,4 +208,104 @@ export default {
 };
 </script>
 <style scoped>
+.section-title {
+  font-family: 'Montserrat', sans-serif; /* Modern, legible font */
+  font-size: 24px; /* Larger font size for title */
+  font-weight: bold; /* Bold title */
+  color: #333; /* Darker color for contrast */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle drop shadow */
+  padding: 20px; /* Padding for spacing */
+  margin-bottom: 20px; /* Margin for separation */
+  background-color: #f5f5f5; /* Light background color */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.section-title:hover {
+  background-color: #06a0bb; /* Slightly darker background on hover */
+  color: white;
+}
+
+/* Card Design */
+/* Announcement Card Styles */
+.announcement-card {
+  cursor: pointer;
+}
+
+.announcement-card-image-container {
+  height: 200px; /* Adjust height as needed */
+}
+
+.announcement-card-image {
+  /* Remove border-radius and box-shadow */
+  width: 100%; /* Make image full width */
+  height: 100%; /* Make image full height */
+  object-fit: cover; /* Cover the card without exceeding */
+  background-size: cover; /* Cover the background area */
+  background-position: center; /* Center the image */
+  display: block; /* Ensure image is treated as a block element */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.3s ease; /* Transition for hover effect */
+}
+
+.announcement-card-image:hover {
+  transform: scale(1.02); /* Slight zoom on hover */
+}
+
+.announcement-card-content {
+  background-color: #fff;
+  padding: 15px;
+}
+
+.announcement-card-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px; /* Add margin for spacing */
+}
+
+.announcement-card-content-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* Timeline Styles */
+.timeline {
+  position: relative; /* For positioning the timeline line */
+}
+
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background-color: #ddd; /* Adjust color as needed */
+}
+
+.timeline-item-content {
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-item-content:hover {
+  background-color: #06a0bb;
+}
+
+.timeline-item-time {
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.timeline-item-title {
+  font-size: 18px; /* Adjust font size as needed */
+  font-weight: bold;
+}
+
+.timeline-item-text {
+  font-size: 14px; /* Adjust font size as needed */
+  color: #333; /* Adjust text color as needed */
+}
+
 </style>
