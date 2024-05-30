@@ -1,7 +1,7 @@
 
 <template>
-  <f7-page name="attendance" @page:beforeremove="onPageBeforeRemove" @page:init="onPageInit">
-    <f7-navbar title="Calendar"></f7-navbar>
+  <f7-page name="attendance" >
+    <f7-navbar title="Calendar" back-link="Back"></f7-navbar>
 
     <f7-block>
       <p>Calendar is a touch optimized component that provides an easy way to handle dates.</p>
@@ -18,17 +18,8 @@
   </f7-page>
 </template>
 <script>
-import $ from 'dom7';
-
 export default {
   methods: {
-    onPageInit() {
-      const self = this;
-    },
-    onPageBeforeRemove() {
-      const self = this;
-      self.calendarInline.destroy();
-    },
   },
 };
 </script>

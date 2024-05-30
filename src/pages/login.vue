@@ -28,7 +28,7 @@
                         placeholder="Your password"
                         clear-button
                         v-model:value="password"
-                        v-on:keydown.enter="login"
+                        v-on:keydown.enter="signIn"
                     >
                         <template #media>
                           <f7-icon icon="demo-list-icon" />
@@ -80,29 +80,6 @@
         //   this.isLoading = false;
         //   f7.views.main.router.navigate('/');
         // }
-      },
-      login() {
-          this.isLoading = true;
-          // Perform login request to Laravel Passport backend
-          axios.post('http://localhost/damarback/public/api/login', {
-              email: this.email,
-              password: this.password,
-          })
-          .then(response => {
-              this.isLoading = false;
-              const token = response.data.data.token;
-              // Store the token in LocalStorage or Vuex (for a more advanced state management)
-              localStorage.setItem('token', token);
-              
-              // Navigate to the home page or perform other actions
-              f7.views.main.router.navigate('/');
-          })
-          .catch(error => {
-          console.error(error);
-          // Display an error message
-              this.isLoading = false;
-              f7.dialog.alert('Login failed. Please check your email and password.');
-          });
       },
       async signIn(response) {
         this.isLoading = true;

@@ -32,8 +32,17 @@
         </f7-list-item>
         <f7-list-item
           link
-          title="Pembayaran"
+          title="Tagihan"
           @click="() => (selectedMenu = 'billing')"
+        >
+          <template #media>
+            <f7-icon md="material:receipt_long" ios="f7:square_favorites" />
+          </template>
+        </f7-list-item>
+        <f7-list-item
+          link
+          title="Pembayaran"
+          @click="() => (selectedMenu = 'payment')"
         >
           <template #media>
             <f7-icon md="material:payments" ios="f7:wallet_fill" />
@@ -60,7 +69,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { supabase } from '../js/supabase.js';
 import { f7 } from 'framework7-vue';
 export default {
   name: 'Sidebar',
@@ -91,28 +100,14 @@ export default {
       this.f7router.navigate('/agenda-harian/');
       f7.panel.close('left');
     },
-    logout() {
-      this.isLoading = true;
-      const token = localStorage.getItem('token');
+    async logout() {
+      const { error } = await supabase.auth.signOut();
 
-      axios.post('http://localhost/damarback/public/api/logout', {}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => {
-        this.isLoading = false;
-        if(response.status == 200) {
-          localStorage.removeItem('token');
-          f7.panel.close('left');
-          f7.views.main.router.navigate('/login/');
-        }
-      })
-      .catch(error => {
+      if(!error) {
         f7.panel.close('left');
-        this.isLoading = false;
-        console.error('Error:', error);
-      });
+        localStorage.removeItem("session");
+        this.f7router.navigate('/login/');
+      }
     },
   },
   props: {
