@@ -69,15 +69,28 @@
 
     <!-- Section for Berita dan Pengumuman Terbaru -->
     <f7-block-title class="section-title">Pengumuman Terbaru</f7-block-title>
-    <f7-card v-for="(announcement, index) in announcements" :key="index" class="announcement-card">
-      <div class="announcement-card-image-container">
-        <img :srcset="announcement.image" alt="Announcement Image" class="announcement-card-image" sizes="(max-width: 600px) 600px, (max-width: 1000px) 1000px, 1200px">
-      </div>
-      <div class="announcement-card-content">
-        <div class="announcement-card-header">{{ announcement.title }}</div>
-        <p class="announcement-card-content-text">{{ announcement.content }}</p>
-      </div>
-    </f7-card>
+    <div class="announcement-list">
+      <f7-card
+        v-for="(announcement, index) in announcements"
+        :key="index"
+        class="announcement-card"
+      >
+        <div class="announcement-card-image-container">
+          <img
+            :src="announcement.image"
+            alt="Announcement Image"
+            class="announcement-card-image"
+            sizes="(max-width: 600px) 600px, (max-width: 1000px) 1000px, 1200px"
+          />
+        </div>
+        <div class="announcement-card-content">
+          <div class="announcement-card-header">{{ announcement.title }}</div>
+          <p class="announcement-card-content-text">
+            {{ announcement.content }}
+          </p>
+        </div>
+      </f7-card>
+    </div>
 
 
 
@@ -227,45 +240,71 @@ export default {
 
 /* Card Design */
 /* Announcement Card Styles */
+.announcement-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
 .announcement-card {
   cursor: pointer;
+  flex: 1 1 calc(33.333% - 16px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.announcement-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .announcement-card-image-container {
-  height: 200px; /* Adjust height as needed */
+  height: 300px;
 }
 
 .announcement-card-image {
-  /* Remove border-radius and box-shadow */
-  width: 100%; /* Make image full width */
-  height: 100%; /* Make image full height */
-  object-fit: cover; /* Cover the card without exceeding */
-  background-size: cover; /* Cover the background area */
-  background-position: center; /* Center the image */
-  display: block; /* Ensure image is treated as a block element */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  transition: transform 0.3s ease; /* Transition for hover effect */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  display: block;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
 .announcement-card-image:hover {
-  transform: scale(1.02); /* Slight zoom on hover */
+  transform: scale(1.02);
 }
 
 .announcement-card-content {
   background-color: #fff;
   padding: 15px;
+  flex-grow: 1;
 }
 
 .announcement-card-header {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 10px; /* Add margin for spacing */
+  margin-bottom: 10px;
 }
 
 .announcement-card-content-text {
   font-size: 14px;
   line-height: 1.5;
   color: #333;
+}
+
+@media (max-width: 768px) {
+  .announcement-card {
+    flex: 1 1 100%;
+  }
 }
 
 /* Timeline Styles */
@@ -283,6 +322,7 @@ export default {
 }
 
 .timeline-item-content {
+  width: 100%;
   padding: 15px;
   background-color: #fff;
   border-radius: 5px;
