@@ -5,6 +5,7 @@ import ClassroomDetailPage from '../pages/classroom-detail.vue';
 import StudentPage from '../pages/student.vue';
 import StudentDetailPage from '../pages/student-detail.vue';
 import AttendancePage from '../pages/attendance.vue';
+import BillingPage from '../pages/billing.vue';
 import AgendaHarianPage from '../pages/agenda-harian.vue';
 
 import AboutPage from '../pages/about.vue';
@@ -45,6 +46,10 @@ var routes = [
   {
     path: '/attendance/',
     component: AttendancePage,
+  },
+  {
+    path: '/billing/',
+    component: BillingPage,
   },
   {
     path: '/agenda-harian/',

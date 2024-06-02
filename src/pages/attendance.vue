@@ -14,7 +14,7 @@
 
       <div class="attendance-filters">
         <f7-list>
-          <f7-list-item title="Pilih kelas" smart-select>
+          <f7-list-item title="Pilih kelas" smart-select :smart-select-params="{ closeOnSelect: true }">
             <select v-model="selectedClass" @change="filterStudentsByClass">
               <option value="">Semua Kelas</option>
               <option
@@ -38,41 +38,45 @@
           <div class="attendance-card-content">
             <div class="student-info">
               <div class="student-name">{{ student.name }}</div>
-              <div class="student-class" v-if="student.class">
-                <span class="class-label">Kelas:</span> {{ student.class }}
+              <div class="student-details">
+                <div class="student-class" v-if="student.class">
+                  <span class="class-label">Kelas:</span> {{ student.class }}
+                </div>
+                <div class="attendance-status">
+                  <f7-button
+                    fill
+                    small
+                    @click="setAttendanceStatus(student, 'hadir')"
+                    class="attendance-button present"
+                    :class="{ active: student.status === 'hadir' }"
+                  >
+                    <span class="button-label">Hadir</span>
+                    <i class="icon material-icons">check</i>
+                  </f7-button>
+                  <f7-button
+                    fill
+                    small
+                    color="blue"
+                    @click="setAttendanceStatus(student, 'izin')"
+                    class="attendance-button excuse"
+                    :class="{ active: student.status === 'izin' }"
+                  >
+                    <span class="button-label">Izin</span>
+                    <i class="icon material-icons">help</i>
+                  </f7-button>
+                  <f7-button
+                    fill
+                    small
+                    color="red"
+                    @click="setAttendanceStatus(student, 'absen')"
+                    class="attendance-button absent"
+                    :class="{ active: student.status === 'absen' }"
+                  >
+                    <span class="button-label">Absen</span>
+                    <i class="icon material-icons">close</i>
+                  </f7-button>
+                </div>
               </div>
-            </div>
-            <div class="attendance-status">
-              <f7-button
-                fill
-                small
-                color="green"
-                @click="setAttendanceStatus(student, 'hadir')"
-                class="attendance-button"
-              >
-                <span class="button-label">Hadir</span>
-                <i class="icon material-icons" style="color: white;">check</i>
-              </f7-button>
-              <f7-button
-                fill
-                small
-                color="blue"
-                @click="setAttendanceStatus(student, 'izin')"
-                class="attendance-button"
-              >
-                <span class="button-label">Izin</span>
-                <i class="icon material-icons" style="color: white;">help</i>
-              </f7-button>
-              <f7-button
-                fill
-                small
-                color="red"
-                @click="setAttendanceStatus(student, 'absen')"
-                class="attendance-button"
-              >
-                <span class="button-label">Absen</span>
-                <i class="icon material-icons" style="color: white;">close</i>
-              </f7-button>
             </div>
           </div>
         </f7-card>
@@ -80,7 +84,6 @@
     </div>
   </f7-page>
 </template>
-
 
 <script>
 export default {
@@ -131,7 +134,7 @@ export default {
 <style scoped>
 .attendance-page {
   padding: 20px;
-  background-color: #f8f9fa; /* Warna latar belakang yang netral */
+  background-color: #f8f9fa;
 }
 
 .attendance-search {
@@ -153,14 +156,13 @@ export default {
 
 .attendance-list {
   display: flex;
-  flex-wrap: wrap;
   gap: 5px;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .attendance-card {
-  width: calc(33.333% - 20px); /* Lebar kartu responsif */
-  min-width: 300px; /* Lebar kartu minimum */
+  width: calc(33.333% - 20px);
+  min-width: 300px;
   box-sizing: border-box;
   background-color: #fff;
   border-radius: 12px;
@@ -180,13 +182,18 @@ export default {
 .student-info {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .student-name {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+.student-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .student-class {
@@ -196,8 +203,6 @@ export default {
 
 .attendance-status {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 15px;
   gap: 5px;
 }
 
@@ -220,16 +225,16 @@ export default {
 }
 
 /* Warna tombol status berdasarkan status kehadiran */
-.attendance-status f7-button[color="green"] {
-  background-color: #4CAF50;
+.present {
+  background-color: #138468;
 }
 
-.attendance-status f7-button[color="blue"] {
-  background-color: #2196F3;
+.excuse {
+  background-color: #009dd6;
 }
 
-.attendance-status f7-button[color="red"] {
-  background-color: #F44336;
+.absent {
+  background-color: #ec111a;
 }
 
 .material-icons {
@@ -237,29 +242,24 @@ export default {
   font-size: 0.8em;
 }
 
+/* Tombol aktif */
+.attendance-button.active {
+  filter: brightness(1);
+}
+
+/* Tombol tidak aktif */
+.attendance-button:not(.active) {
+  filter: brightness(0.5);
+}
+
 @media (max-width: 768px) {
+  .attendance-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
   .attendance-card {
     width: calc(100% - 20px);
   }
 }
 </style>
-
-
-<!-- <template>
-  <f7-page name="attendance" >
-    <f7-navbar title="Calendar" back-link="Back"></f7-navbar>
-
-    <f7-block>
-      <p>Calendar is a touch optimized component that provides an easy way to handle dates.</p>
-      <p>
-        Calendar could be used as inline component or as overlay. Overlay Calendar will be
-        automatically converted to Popover on tablets (iPad).
-      </p>
-    </f7-block>
-
-    <f7-block-title>Default setup</f7-block-title>
-    <f7-list strong-ios outline-ios>
-      <f7-list-input type="datepicker" placeholder="Pilih hari" readonly />
-    </f7-list>
-  </f7-page>
-</template> -->

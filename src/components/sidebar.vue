@@ -33,7 +33,7 @@
         <f7-list-item
           link
           title="Tagihan"
-          @click="() => (selectedMenu = 'billing')"
+          @click="openBillingPage()"
         >
           <template #media>
             <f7-icon md="material:receipt_long" ios="f7:square_favorites" />
@@ -93,6 +93,11 @@ export default {
     openAttendancePage() {
       this.selectedMenu = "attendance";
       this.f7router.navigate('/attendance/');
+      f7.panel.close('left');
+    },
+    openBillingPage() {
+      this.selectedMenu = "billing";
+      this.f7router.navigate('/billing/');
       f7.panel.close('left');
     },
     openAgendaHarianPage() {
